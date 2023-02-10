@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins/Poppins-Regular.ttf');
+}
+
+.container{
+    -fx-background:linear-gradient(to bottom, #6441a5, #2a0845);
+
+
+}
+.text{
+    -fx-font-family:'Poppins';
+}
+.btn{
+    -fx-text-fill: white;
+    -fx-background-color:#512DA8;
+    -fx-font-size: 16px;
+
+}
+.inputs{
+    -fx-background-color:#D1C4E9;
+    -fx-prompt-text-fill: black;
+
+}
+.register{
+    -fx-font-size:14px;
+    -fx-text-fill:white;
+
+}
+.register:pressed{
+    -fx-background-color:transparent;
+}

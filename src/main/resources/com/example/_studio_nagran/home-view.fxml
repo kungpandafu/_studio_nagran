@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <VBox prefHeight="300.0" prefWidth="676.0" style="-fx-background-color: blue;" BorderPane.alignment="CENTER" />
+   </center>
+   <top>
+      <BorderPane prefHeight="100.0" prefWidth="741.0" BorderPane.alignment="CENTER">
+         <left>
+            <HBox prefHeight="200.0" prefWidth="241.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label alignment="CENTER" prefHeight="128.0" prefWidth="123.0" text="msnadasjdnsa&#10;&#10;SuperAdministrator&#10;" />
+               </children>
+            </HBox>
+         </left>
+         <right>
+            <HBox prefHeight="101.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="250.0" style="-fx-background-color: transparent;" text="Studio" />
+                  <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="250.0" style="-fx-background-color: transparent;" text="Sklep" />
+                  <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="250.0" style="-fx-background-color: transparent;" text="Ustawienia" />
+                  <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="250.0" style="-fx-background-color: transparent;" text="Wyloguj" />
+               </children>
+            </HBox>
+         </right>
+      </BorderPane>
+   </top>
+</BorderPane>
