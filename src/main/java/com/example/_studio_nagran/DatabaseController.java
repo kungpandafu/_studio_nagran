@@ -11,8 +11,8 @@ public class DatabaseController {
     public Connection dbLink;
 
     public Connection getConnection(){
-        String dbName ="projekt";
-        String dbUser ="root";
+         String dbName ="projekt";
+      String dbUser ="root";
         String dbPassword ="";
 
         String url ="jdbc:mysql://localhost:3306/"+ dbName;

@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins/Poppins-Regular.ttf');
+}
+
+
+.menuWrapper{
+    -fx-background:linear-gradient(to bottom, #6441a5, #2a0845);
+
+}

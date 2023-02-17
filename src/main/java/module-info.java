@@ -4,6 +4,7 @@ module com.example._studio_nagran {
     requires java.sql;
     requires jbcrypt;
     requires java.prefs;
+    requires mysql.connector.j;
 
 
     opens com.example._studio_nagran to javafx.fxml;
