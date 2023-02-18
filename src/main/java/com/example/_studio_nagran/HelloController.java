@@ -33,6 +33,9 @@ public class HelloController {
             if(checkUser.signInUser(username.getText(), userPassword.getText())){
                 loginMessageLabel.setText("zalogowano");
                     //redirect to home scene.
+                   try{ redirectAuthenticatedUser();}catch(Exception ex){
+                       System.err.println("Error");
+                   };
 
                 }
             }
@@ -48,5 +51,12 @@ public class HelloController {
 
         Stage window = (Stage) changeSceneBtn.getScene().getWindow();
         window.setScene(new Scene(root,640,480));
+    }
+    public void redirectAuthenticatedUser() throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("home-view.fxml"));
+
+        Stage window = (Stage) changeSceneBtn.getScene().getWindow();
+        window.setScene(new Scene(root,640,480));
+        window.setResizable(true);
     }
 }

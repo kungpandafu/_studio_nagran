@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example._studio_nagran.addProductsController">
+   <children>
+      <ComboBox fx:id="comboBox" layoutX="300.0" layoutY="122.0" prefHeight="26.0" prefWidth="118.0" />
+      <Label layoutX="208.0" layoutY="118.0" prefHeight="33.0" prefWidth="92.0" text="Dodaję:">
+         <font>
+            <Font name="Poppins Regular" size="14.0" />
+         </font>
+      </Label>
+      <GridPane fx:id="formGrid" layoutX="177.0" layoutY="153.0" prefHeight="205.0" prefWidth="246.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="62.0" minHeight="25.0" prefHeight="47.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="118.0" minHeight="25.0" prefHeight="53.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="81.0" minHeight="25.0" prefHeight="55.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="81.0" minHeight="25.0" prefHeight="55.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="81.0" minHeight="25.0" prefHeight="55.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+      <ImageView fx:id="userAvatar" fitHeight="111.0" fitWidth="118.0" layoutX="33.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="successerrlabel" layoutX="176.0" layoutY="91.0" prefHeight="17.0" prefWidth="295.0">
+         <font>
+            <Font name="Poppins Regular" size="14.0" />
+         </font>
+      </Label>
+
+   </children>
+</AnchorPane>
