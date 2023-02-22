@@ -34,7 +34,7 @@ public class HelloController {
                 loginMessageLabel.setText("zalogowano");
                     //redirect to home scene.
                    try{ redirectAuthenticatedUser();}catch(Exception ex){
-                       System.err.println("Error");
+                       System.err.println("Err:"+ex);
                    };
 
                 }
@@ -56,7 +56,7 @@ public class HelloController {
         Parent root = FXMLLoader.load(getClass().getResource("home-view.fxml"));
 
         Stage window = (Stage) changeSceneBtn.getScene().getWindow();
-        window.setScene(new Scene(root,640,480));
+        window.setScene(new Scene(root,780,700));
         window.setResizable(true);
     }
 }

@@ -1,23 +1,20 @@
 package com.example._studio_nagran;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DatabaseController {
-
+        private String url;
     public Connection dbLink;
 
     public Connection getConnection(){
-         String dbName ="projekt";
-      String dbUser ="root";
-        String dbPassword ="";
+         String dbName ="sql11592473";
+      String dbUser ="sql11592473";
+        String dbPassword ="SZ4ZjfVf1d";
+          url = "jdbc:mysql://sql11.freemysqlhosting.net/"+dbName;
 
-        String url ="jdbc:mysql://localhost:3306/"+ dbName;
 
          try{
+
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 dbLink = DriverManager.getConnection(url, dbUser, dbPassword);
             }catch(Exception e){
@@ -25,5 +22,7 @@ public class DatabaseController {
          }
         return dbLink;
     }
+
+
 
 }

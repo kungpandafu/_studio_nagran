@@ -1,5 +1,7 @@
 package com.example._studio_nagran;
 
+import javafx.collections.ObservableList;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -249,4 +251,5 @@ public class handleNewProductsController {
         }
         return false;
     }
+
 }

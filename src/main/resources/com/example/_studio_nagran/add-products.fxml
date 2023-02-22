@@ -9,10 +9,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example._studio_nagran.addProductsController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="menuWrapper" stylesheets="@../../../css/home.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example._studio_nagran.addProductsController">
    <children>
-      <ComboBox fx:id="comboBox" layoutX="300.0" layoutY="122.0" prefHeight="26.0" prefWidth="118.0" />
-      <Label layoutX="208.0" layoutY="118.0" prefHeight="33.0" prefWidth="92.0" text="Dodaję:">
+      <ComboBox fx:id="comboBox" layoutX="300.0" layoutY="122.0" prefHeight="26.0" prefWidth="118.0" styleClass="combobox" stylesheets="@../../../css/home.css" />
+      <Label layoutX="208.0" layoutY="118.0" prefHeight="33.0" prefWidth="92.0" text="Dodaję:" textFill="WHITE">
          <font>
             <Font name="Poppins Regular" size="14.0" />
          </font>

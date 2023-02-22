@@ -4,7 +4,39 @@
 }
 
 
-.menuWrapper{
-    -fx-background:linear-gradient(to bottom, #6441a5, #2a0845);
+.menuWrapper {
+    -fx-background: linear-gradient(to bottom, #6441a5, #2a0845);
 
+}
+.combobox{
+    -fx-background-color:none;
+    -fx-pref-width:130px;
+}
+.combobox .cell:selected {
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+}
+
+.formfield{
+-fx-text-fill:white;
+    -fx-border-color:white;
+    -fx-border-width:1px;
+    -fx-font-size:14px;
+    -fx-start-margin: 2px;
+}
+.formfield:focused{
+    -fx-background-color:none;
+    -fx-border-color:yellow;
+}
+.sendAvatarBtn, .handleActionBtn{
+    -fx-text-fill:white;
+    -fx-font-size:14px;
+    -fx-text-alignment:center;
+    -fx-pref-width: 250px ;
+}
+.handleActionBtn {
+    -fx-background-color: green;
+}
+.sendAvatarBtn{
+    -fx-background-color: #016565;
 }

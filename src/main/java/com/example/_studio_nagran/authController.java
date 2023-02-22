@@ -7,12 +7,14 @@ import org.mindrot.jbcrypt.*;
 import java.util.prefs.Preferences;
 
 public class authController {
+
+    // deklaruje połączenie z bazą danych.
     private final DatabaseController conn = new DatabaseController();
 
     /*
-     * @String username
-     * @String password
-     * User registration functionality, takes username and password as args.
+     * @Param String
+     * @Param String
+     * Metoda odpowiedzialna za rejestracje użytkownika w bazie danych, jako parametr przyjmuje username oraz password.
      */
     protected boolean registerUser(String username, String password) {
         if (!this.checkIfUserAlreadyExists(username)) {
@@ -20,13 +22,18 @@ public class authController {
         }
 
         int result = 0;
-        try (Connection connDB = this.conn.getConnection()) {
+        int permissions= 0;
+        if(this.checkifFirst()) permissions = 2;
 
+        try (Connection connDB = this.conn.getConnection()) {
+            // deklaruje połączenie jako preparedStatement
             String register = "INSERT INTO users (USERNAME, PASSWORD, PERMISSIONS) VALUES (?,?, ?)";
             PreparedStatement query = connDB.prepareStatement(register);
+            // binduje wartości
             query.setString(1, username);
+            // Używam biblioteki BCrypt do hashowania hasła.
             query.setString(2, BCrypt.hashpw(password, BCrypt.gensalt()));
-            query.setInt(3, 0);
+            query.setInt(3, 2);
             result = query.executeUpdate();
             if (result == 1) {
                 return true;
@@ -42,9 +49,9 @@ public class authController {
 
 
     /*
-     * @String username
+     * @Param username
      *
-     * Function provides functionality that checks if a user with provided username already exists
+     * Metoda sprawdza czy podany użytkownik już istnieje w bazie danych zwraca True|False w zależności od wyniku.
      */
     private boolean checkIfUserAlreadyExists(String username) {
         int result = 0;
@@ -68,7 +75,12 @@ public class authController {
         return false;
 
     }
-
+    /*
+    *@Param String
+    *@Param String
+    *
+    * Metoda odpowiedzialna za "zalogowanie" użytkownika, zwraca True | False w zależności od wyniku
+     */
     protected boolean signInUser(String username, String password) {
         try (Connection connDB = conn.getConnection()) {
             String fetchedUsername = null;
@@ -85,13 +97,12 @@ public class authController {
                 fetchedpermissions = rs.getInt("fetchedpermissions");
             }
             if(this.checkforCredentials(username, fetchedUsername, password, fetchedPassword)){
-                // set user data
+                // Wykorzystuję mechanizm Preferencji do przechowywania danych użytkownika.
                 Preferences userPreferences = Preferences.userRoot();
                 userPreferences.put("username",fetchedUsername);
                 userPreferences.putInt("permissions", fetchedpermissions);
                 return true;
-             //   ManageUserSessionController.getInstance(fetchedUsername, fetchedpermissions);
-                // redirect to...
+
             }
 
 
@@ -103,10 +114,45 @@ public class authController {
         return false;
     }
 
+    /*
+    * @Param String
+    * @Param String
+    * @Param String
+    * @Param String
+    *
+    * Metoda odpowiada za porównanie wartości wprowadzonych przez użytkownika przy logowaniu, do wartości otrzymanych w bazie danych
+    * Zwraca True | False w zależności od rezultatu
+     */
 
     private boolean checkforCredentials(String username, String fetchedusername, String password, String fetchedpwd) {
         if(fetchedusername.equals(username) && BCrypt.checkpw(password, fetchedpwd)) return true;
         else return false;
+    }
+    /*
+    *Metoda odpowiedzialna za sprawdzenie czy jest to pierwszy użytkownik w bazie danych
+    * Zwraca True | False w zależności od wyniku.
+    *
+     */
+    private boolean checkifFirst(){
+        int result = 0;
+        try (Connection connDB = conn.getConnection()) {
+            String check = "SELECT count(*) AS total FROM users";
+            PreparedStatement query = connDB.prepareStatement(check);
+
+
+            ResultSet rs = query.executeQuery();
+
+            while (rs.next()) {
+                result = rs.getInt("total");
+            }
+            if (result == 0) return true;
+            else return false;
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
 

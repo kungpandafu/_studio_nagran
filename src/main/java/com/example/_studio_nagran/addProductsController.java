@@ -2,6 +2,7 @@ package com.example._studio_nagran;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,8 +26,13 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 public class addProductsController implements Initializable {
+    private final DatabaseController conn = new DatabaseController();
     @FXML
     private GridPane formGrid;
     @FXML
@@ -49,11 +55,17 @@ public class addProductsController implements Initializable {
         comboBox.getSelectionModel().selectFirst();
         sendAvatarBtn = new Button();
         sendAvatarBtn.setText("Prześlij Grafikę");
+        sendAvatarBtn.getStyleClass().add("sendAvatarBtn");
         handleActionBtn = new Button();
+        handleActionBtn.getStyleClass().add("handleActionBtn");
         authorname = new TextField();
+        authorname.getStyleClass().add("formfield");
         handleActionBtn.setText("Dodaj rekord do Bazy Danych");
         TextField diskName = new TextField();
         TextField songName = new TextField();
+        diskName.getStyleClass().add("formfield");
+        songName.getStyleClass().add("formfield");
+
         comboBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
 
@@ -76,23 +88,27 @@ public class addProductsController implements Initializable {
                     diskName.setPromptText("Wprowadź Nazwę Płyty");
                     // authorname = new TextField();
                     // authorname.setPromptText("Wprowadź Nazwę Autora");
-
+                    System.out.println("Selected value : " + newValue);
                     formGrid.add(diskName, 0, 0);
                     // formGrid.add(authorname, 0,1);
                     formGrid.add(sendAvatarBtn, 0, 1);
                     formGrid.add(handleActionBtn, 0, 2);
-                    // System.out.println("Selected value : " + newValue);
+                    //System.out.println("Selected value : " + newValue);
                 } else if (newValue.equals("Utwór")) {
                     formGrid.getChildren().retainAll(formGrid.getChildren().get(0));
                     songName.setPromptText("Wprowadź Nazwę Utworu");
                     diskName.setPromptText("Podaj nazwę płyty - przypisz do płyty");
                     authorname.setPromptText("Podaj autora - przypisz autora do utworu");
+                   // System.out.println("Selected value : " + newValue);
                     formGrid.add(songName, 0, 0);
                     formGrid.add(diskName, 0, 1);
                     formGrid.add(authorname, 0, 2);
                     formGrid.add(sendAvatarBtn, 0, 3);
                     formGrid.add(handleActionBtn, 0, 4);
 
+                }
+                else{
+                    formGrid.getChildren().retainAll(formGrid.getChildren().get(0));
                 }
             }
 
@@ -133,8 +149,8 @@ public class addProductsController implements Initializable {
                         successerrlabel.setTextFill(Color.RED);
                     }
 
-                    System.out.println(authorname.getText());
-                    System.out.println(selectedFile);
+                   // System.out.println(authorname.getText());
+                   // System.out.println(selectedFile);
                 } else if (comboBox.getValue() == "Płyta") {
                     if (diskName.getText().isBlank() || selectedFile == null) {
                         successerrlabel.setText("Wystąpił Błąd! Nazwa Płyty nie może być pusta, grafika musi zostać wybrana!");
@@ -168,4 +184,7 @@ public class addProductsController implements Initializable {
         });
 
     }
+
+
+
 }
