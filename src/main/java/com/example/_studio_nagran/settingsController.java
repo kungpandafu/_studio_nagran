@@ -13,7 +13,7 @@ import javafx.scene.Scene;
 
 public class settingsController implements Initializable
 {
-    private static Collection<String> getStyleSheets() {}
+
     @FXML
     public ChoiceBox<String> lauguage1;
     @FXML
@@ -54,13 +54,13 @@ public class settingsController implements Initializable
             {
 
                 if (newValue.equals("Dark")) {
-                    addProductsController.getStyleSheets().add("dark-theme.css");
-                    HelloApplication.getStyleSheets().add("dark-theme.css");
-                    settingsController.getStyleSheets().add("dark-theme.css");
+                   // addProductsController.getStyleSheets().add("dark-theme.css");
+                   // HelloApplication.getStyleSheets().add("dark-theme.css");
+                   // settingsController.getStyleSheets().add("dark-theme.css");
                 }
                 else if (newValue.equals("Bright"))
                 {
-                    addProductsController.getStyleSheets().add("whitemode.css");
+                   // addProductsController.getStyleSheets().add("whitemode.css");
                 }
 
 
