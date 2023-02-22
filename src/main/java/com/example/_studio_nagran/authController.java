@@ -120,7 +120,8 @@ public class authController {
     * @Param String
     * @Param String
     *
-    * Metoda odpowiada za porównanie wartości wprowadzonych przez użytkownika przy logowaniu, do wartości otrzymanych w bazie danych
+    * Metoda odpowiada za porównanie wartości wprowadzonych przez użytkownika przy logowaniu,
+    * do wartości otrzymanych w bazie danych
     * Zwraca True | False w zależności od rezultatu
      */
 

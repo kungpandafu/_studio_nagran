@@ -27,15 +27,22 @@ public class RegisterController{
     private Label registerMessageLabel;
     @FXML
 
+        /*
+        * Metoda odpowiedzialna za przeprowadzenie procesu rejestracji użytkownika
+        * @Param ActionEvent
+        *
+         */
     public void registerBtnOnAction(ActionEvent e){
         if(username.getText().isBlank() == false && userPassword.getText().isBlank() == false && userPasswordRepeat.getText().isBlank() == false)
         {
             if(userPassword.getText().equals(userPasswordRepeat.getText())){
-                // do action
+                // wywołuję authController
                 authController performUserRegister = new authController();
+                // wywołuję metodę odpowiedzialną za zarejestrowanie użytkownika w authControllerze
                 boolean result = performUserRegister.registerUser(username.getText(), userPassword.getText());
                 if(result){
                   try{
+                      // jeżeli sukces przekierowuję z powrotem na widok logowania.
                       this.handleBackToLogin();
                   }
                   catch(Exception ex){
@@ -57,7 +64,11 @@ public class RegisterController{
         registerMessageLabel.setStyle("-fx-text-fill: red;");
         }
     }
-
+    /*
+    * Metoda odpowiedzialna za przekierowanie użytkownika na widok logowania po sukcesywnej rejestracji
+    *
+    *
+     */
     public void handleBackToLogin() throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
 

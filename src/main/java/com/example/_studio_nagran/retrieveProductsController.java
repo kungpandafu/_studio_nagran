@@ -15,19 +15,29 @@ import java.sql.SQLException;
 
 public class retrieveProductsController {
     private final static DatabaseController conn = new DatabaseController();
+
+
+    /*
+    * Metoda odpowiedzialna za wyciągnięcie Autorów z bazy danych
+     */
     public static ObservableList<Author> retrieveAuthors(){
 
+        // określam Liste obserwowalną Autorów.
         ObservableList<Author> authors = FXCollections.observableArrayList();
+        // nawiązuje połączenie z bazą danych.
         try (Connection connDB = conn.getConnection()) {
 
 
-
+            // przygotowuję i wykonuje zapytanie do bazy danych.
             String insert = "SELECT * from authors";
             PreparedStatement query = connDB.prepareStatement(insert);
             ResultSet rs = query.executeQuery();
 
+            // przechodzę po otrzymanych wynikach.
             while(rs.next()){
+                // sprawdzam czy do Autora przypisany jest obrazek w postaci BLOB
                 if(rs.getBlob("authorAvatar") != null) {
+                    // dodaje nowych autorów do listy
                     authors.add(new Author(rs.getInt("IDauthor"), rs.getString("authorName"), new Image(rs.getBlob("authorAvatar").getBinaryStream())));
                 }
                 else{
@@ -39,10 +49,19 @@ public class retrieveProductsController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        // zwracam autorów
         return authors;
     }
+
+    /*
+    *Metoda odpowiedzialna za wyciągnięcie Utworów z Bazy Danych
+    *
+    *
+     */
     public static ObservableList<Song> retrieveSongs(){
+        // definiuje songs jako listę obserwowaną
         ObservableList<Song> songs = FXCollections.observableArrayList();
+            // nawiązuje połączenie z bazą.
         try (Connection connDB = conn.getConnection()) {
 
 
@@ -52,8 +71,14 @@ public class retrieveProductsController {
             ResultSet rs = query.executeQuery();
 
             while(rs.next()){
-                songs.add(new Song( rs.getInt("songID"), rs.getString("songName"), rs.getString("authorname"), rs.getString("diskName"),new Image(rs.getBlob("songAvatar").getBinaryStream())) );
-            }
+                // przechodzę po otrzymanych wynikach i sprawdzam czy grafika Utworu jest przypisana do danego rekordu, jeżeli nie tworzę obiekt bez Avatara.
+                if(rs.getBlob("songAvatar") != null) {
+                    songs.add(new Song(rs.getInt("songID"), rs.getString("songName"), rs.getString("authorname"), rs.getString("diskName"), new Image(rs.getBlob("songAvatar").getBinaryStream())));
+                }else{
+                    songs.add(new Song( rs.getInt("songID"), rs.getString("songName"), rs.getString("authorname"), rs.getString("diskName"),null) );
+
+                }
+                }
         }catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
         } catch (Exception e) {
@@ -63,6 +88,8 @@ public class retrieveProductsController {
     }
     public static ObservableList<Disk> retrieveDisks(){
         ObservableList<Disk> disks = FXCollections.observableArrayList();
+
+
         try (Connection connDB = conn.getConnection()) {
 
 
@@ -72,8 +99,14 @@ public class retrieveProductsController {
             ResultSet rs = query.executeQuery();
 
             while(rs.next()){
-                disks.add(new Disk( rs.getInt("diskID"), rs.getString("diskName"), new Image(rs.getBlob("diskAvatar").getBinaryStream())));
-            }
+                if(rs.getBlob("diskAvatar")!=null) {
+                    disks.add(new Disk(rs.getInt("diskID"), rs.getString("diskName"), new Image(rs.getBlob("diskAvatar").getBinaryStream())));
+                }
+                else{
+                    disks.add(new Disk( rs.getInt("diskID"), rs.getString("diskName"), null));
+
+                }
+                }
         }catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
         } catch (Exception e) {

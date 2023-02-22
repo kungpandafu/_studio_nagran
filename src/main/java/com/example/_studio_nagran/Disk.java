@@ -31,7 +31,7 @@ public class Disk {
 
     public Image getDiskAvatar(){ return diskAvatar;}
 
-    public void setDongAvatar(Image diskAvatar){
+    public void setDiskAvatar(Image diskAvatar){
         this.diskAvatar = diskAvatar;
     }
 

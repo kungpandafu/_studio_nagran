@@ -32,7 +32,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 public class addProductsController implements Initializable {
+    // inicjuje połączenie z bazą danych
     private final DatabaseController conn = new DatabaseController();
+
+    // definiuje potrzebnę elementy GUI
     @FXML
     private GridPane formGrid;
     @FXML
@@ -49,8 +52,12 @@ public class addProductsController implements Initializable {
     private Label successerrlabel;
     private File selectedFile = null;
 
+
+    // nadpisuje metodę initalize
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // tworzę pole wyboru - którego wartość będzie definiowało - które elementy UI się pojawią wypełniam je zawartością oraz
+        //  inicjuje potrzebne elementy.
         comboBox.setItems(FXCollections.observableArrayList("Wybierz Opcję", "Autor", "Utwór", "Płyta"));
         comboBox.getSelectionModel().selectFirst();
         sendAvatarBtn = new Button();
@@ -66,11 +73,14 @@ public class addProductsController implements Initializable {
         diskName.getStyleClass().add("formfield");
         songName.getStyleClass().add("formfield");
 
+        // dodaje EventListener do pola wyboru
         comboBox.valueProperty().addListener(new ChangeListener<String>() {
+
+            // nadpisuję metodę Changed, która będzie wywoływana przy każdej zmianie w polu wyboru "ComboBox"
             @Override
 
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-
+                // sprawdzam czy wybrana wartość to Autor, następnie wyświetlam odpowiednie elementy UI
                 if (newValue.equals("Autor")) {
                     formGrid.getChildren().retainAll(formGrid.getChildren().get(0));
                     authorname.setPromptText("Wprowadź nazwę Autora");
@@ -83,6 +93,7 @@ public class addProductsController implements Initializable {
                     formGrid.add(handleActionBtn, 0, 2);
 
                     System.out.println("Selected value : " + newValue);
+                    // sprawdzam czy wybrana wartość to Płyta, następnie wyświetlam odpowiednie elementy UI
                 } else if (newValue.equals("Płyta")) {
                     formGrid.getChildren().retainAll(formGrid.getChildren().get(0));
                     diskName.setPromptText("Wprowadź Nazwę Płyty");
@@ -94,6 +105,7 @@ public class addProductsController implements Initializable {
                     formGrid.add(sendAvatarBtn, 0, 1);
                     formGrid.add(handleActionBtn, 0, 2);
                     //System.out.println("Selected value : " + newValue);
+                    // sprawdzam czy wybrana wartość to Utwór, następnie wyświetlam odpowiednie elementy UI
                 } else if (newValue.equals("Utwór")) {
                     formGrid.getChildren().retainAll(formGrid.getChildren().get(0));
                     songName.setPromptText("Wprowadź Nazwę Utworu");
@@ -108,13 +120,14 @@ public class addProductsController implements Initializable {
 
                 }
                 else{
+                    // Jeżeli wartość pola wyboru jest inna niż trzy powyższe tj. wynosi ona np. "Wybierz Opcję" - usuwam wszystkie elementy formularza.
                     formGrid.getChildren().retainAll(formGrid.getChildren().get(0));
                 }
             }
 
         });
 
-
+            //definiuje FileChooser, dzięki któremu będę mógł przesłać obraz do dalszego przetworzenia.
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPG Files", "*.jpg"),
@@ -129,22 +142,27 @@ public class addProductsController implements Initializable {
                 System.out.println("file:" + imagepath);
                 System.out.println("file2:" + selectedFile);
                 Image image = new Image(imagepath);
+                // wyświetlam przesłany obrazek na podglądzie.
                 userAvatar.setImage(image);
 
             }
 
         });
 
+            // przypisuję Event Handler do przycisku
         handleActionBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
+                // wywołuję kontroler odpowiedzialny za operacje zw. z przesłaniem danych do Bazy
                 handleNewProductsController performAction = new handleNewProductsController();
+                // sprawdzam wartość pola Wyboru, następnie na jej podstawię definiuje, którą metodę wywołać w handleNewProductsController.
                 if (comboBox.getValue() == "Autor") {
                     if (performAction.InsertAuthor(authorname.getText(), selectedFile)) {
+                        // jeżeli sukces - wyświetlam stosowną informację
                         successerrlabel.setText("Operacja zakończona sukcesem!");
                         successerrlabel.setTextFill(Color.GREEN);
                     } else {
+                        // jeżeli błąd - wyświetlam informacje, że wystąpił błąd.
                         successerrlabel.setText("Wystąpił Błąd! Sprawdź Czy Autor już nie występuje w bazie danych!");
                         successerrlabel.setTextFill(Color.RED);
                     }
